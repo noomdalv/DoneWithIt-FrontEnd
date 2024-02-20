@@ -14,7 +14,7 @@ export default function ListingDetailsScreen() {
         <View style={styles.userContainer}>
           <ListItem
             image={require("../assets/vlad_cv.png")}
-            title="Vlad Luna"
+            title="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
             subtitle="5 Listings"
           />
         </View>

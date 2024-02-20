@@ -9,7 +9,6 @@ import {
 import React, { useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AppText from "./AppText";
-import ListItem from "./ListItem";
 import PickerItem from "./PickerItem";
 import Screen from "./Screen";
 
@@ -22,13 +21,16 @@ export default function AppPicker({
   items,
   onSelectItem,
   selectedItem,
+  width = "100%",
+  PickerItemComponent = PickerItem,
+  numberOfColumns = 1,
 }) {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
-        <View style={styles.container}>
+        <View style={[styles.container, { width }]}>
           {icon && (
             <MaterialCommunityIcons
               name={icon}
@@ -37,7 +39,9 @@ export default function AppPicker({
               style={styles.icon}
             />
           )}
-          <AppText style={styles.text}>
+          <AppText
+            style={selectedItem ? styles.notSelectedtext : styles.selectedText}
+          >
             {selectedItem ? selectedItem.label : placeholder}
           </AppText>
           <MaterialCommunityIcons
@@ -53,8 +57,10 @@ export default function AppPicker({
           <FlatList
             data={items}
             keyExtractor={(item) => item.value.toString()}
+            numColumns={numberOfColumns}
             renderItem={({ item }) => (
-              <PickerItem
+              <PickerItemComponent
+                item={item}
                 label={item.label}
                 onPress={() => {
                   setModalVisible(false);
@@ -83,7 +89,11 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 10,
   },
-  text: {
+  notSelectedtext: {
+    flex: 1,
+  },
+  selectedText: {
+    color: defaultStyles.colors.medium,
     flex: 1,
   },
 });
