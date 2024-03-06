@@ -1,10 +1,10 @@
 import React from "react";
 import { useFormikContext } from "formik";
 
-import AppPicker from "../AppPicker";
+import AppPicker from "../Picker";
 import ErrorMessage from "./ErrorMessage";
 
-export default function AppFormPicker({
+export default function FormPicker({
   items,
   name,
   placeholder,

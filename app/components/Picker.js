@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import AppText from "./AppText";
+import AppText from "./Text";
 import PickerItem from "./PickerItem";
 import Screen from "./Screen";
 

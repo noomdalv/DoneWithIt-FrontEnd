@@ -1,25 +1,31 @@
 import { Image, StyleSheet, View } from "react-native";
 import React from "react";
-import AppText from "../components/AppText";
+import AppText from "../components/Text";
 import colors from "../config/colors";
 import ListItem from "../components/ListItem";
 
-export default function ListingDetailsScreen() {
+import GestureSwipeDownBack from "../components/GestureSwipeDown";
+
+export default function ListingDetailsScreen({ route }) {
+  const listing = route.params
+
   return (
-    <View>
-      <Image style={styles.image} source={require("../assets/jacket.jpg")} />
-      <View style={styles.detailsContainer}>
-        <AppText style={styles.title}>Red jacket for sale</AppText>
-        <AppText style={styles.price}>$100</AppText>
-        <View style={styles.userContainer}>
-          <ListItem
-            image={require("../assets/vlad_cv.png")}
-            title="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-            subtitle="5 Listings"
-          />
+    <GestureSwipeDownBack>
+      <View>
+        <Image style={styles.image} source={listing.image} />
+        <View style={styles.detailsContainer}>
+          <AppText style={styles.title}>{listing.title}</AppText>
+          <AppText style={styles.price}>${listing.price}</AppText>
+          <View style={styles.userContainer}>
+            <ListItem
+              image={require("../assets/vlad_cv.png")}
+              title="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+              subtitle="5 Listings"
+            />
+          </View>
         </View>
       </View>
-    </View>
+    </GestureSwipeDownBack>
   );
 }
 

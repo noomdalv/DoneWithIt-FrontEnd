@@ -20,8 +20,6 @@ function ImageInput({ imageUri, onChangeImage }) {
       alert("You need to enable permissions to access the library.");
   };
 
-  // console.log(status);
-
   useEffect(() => {
     getPermission();
   }, []);
@@ -41,13 +39,13 @@ function ImageInput({ imageUri, onChangeImage }) {
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         quality: 0.5,
       });
-      console.log(result);
+
       if (!result.cancelled) onChangeImage(result.assets[0].uri);
     } catch (error) {
       console.log("Error reading an image", error);
     }
   };
-  console.log(imageUri + " imageUri");
+
   return (
     <TouchableWithoutFeedback onPress={handlePress}>
       <View style={styles.container}>
