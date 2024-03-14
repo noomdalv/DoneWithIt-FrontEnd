@@ -18,7 +18,7 @@ export default function WelcomeScreen({ navigation }) {
         <AppButton title="Login" onPress={() => navigation.navigate("Login")} />
         <AppButton
           title="Register"
-          color="secondary"
+          color="tomato"
           onPress={() => navigation.navigate("Register")}
         />
       </View>

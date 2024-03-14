@@ -6,6 +6,8 @@ export default {
   black: "#000",
   white: "#FFF",
   light: "#f8f4f4",
+  shadowy: "#eeebea",
+  tomato: "tomato",
   danger: "#ff5252",
   dark: "#0c0c0c",
 };

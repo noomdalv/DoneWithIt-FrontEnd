@@ -1,18 +1,23 @@
-import { Image, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
 import AppText from "../components/Text";
 import colors from "../config/colors";
 import ListItem from "../components/ListItem";
+import { Image } from "expo-image";
 
 import GestureSwipeDownBack from "../components/GestureSwipeDown";
 
 export default function ListingDetailsScreen({ route }) {
-  const listing = route.params
-
+  const listing = route.params;
+  console.log("ListingDetailsScreen", listing);
   return (
     <GestureSwipeDownBack>
       <View>
-        <Image style={styles.image} source={listing.image} />
+        <Image
+          style={styles.image}
+          source={listing.images[0].url}
+          placeholder={listing.images[0].thumbnailUrl}
+        />
         <View style={styles.detailsContainer}>
           <AppText style={styles.title}>{listing.title}</AppText>
           <AppText style={styles.price}>${listing.price}</AppText>

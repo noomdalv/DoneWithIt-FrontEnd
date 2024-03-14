@@ -1,10 +1,15 @@
 import { FlatList, StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import Screen from "../components/Screen";
 import Card from "../components/Card";
 import colors from "../config/colors";
+import useApi from "../hooks/useApi";
+import AppText from "../components/Text";
+import AppButton from "../components/Button";
+import ActivityIndicator from "../components/ActivityIndicator";
+import listingsApi from "../api/listings";
 
-const listings = [
+const listingsTest = [
   {
     id: 1,
     title: "Red jacket for sale",
@@ -20,20 +25,42 @@ const listings = [
 ];
 
 export default function ListingsScreen({ navigation }) {
+  const {
+    data: listings,
+    error,
+    loading,
+    request: loadListings,
+  } = useApi(listingsApi.getListings);
+
+  useEffect(() => {
+    loadListings();
+  }, []);
+
   return (
     <Screen style={styles.container}>
-      <FlatList
-        data={listings}
-        keyExtractor={(listing) => listing.id.toString()}
-        renderItem={({ item }) => (
-          <Card
-            title={item.title}
-            subtitle={"$" + item.price}
-            image={item.image}
-            onPress={() => navigation.navigate("ListingDetails", item)}
-          />
-        )}
-      />
+      <ActivityIndicator visible={loading} />
+
+      {!loading && (
+        <FlatList
+          data={listings}
+          keyExtractor={(listing) => listing.id.toString()}
+          renderItem={({ item }) => (
+            <Card
+              title={item.title}
+              subtitle={"$" + item.price}
+              imageUrl={item.images[0].url}
+              onPress={() => navigation.navigate("ListingDetails", item)}
+              thumbnailUrl={item.images[0].thumbnailUrl}
+            />
+          )}
+        />
+      )}
+      {error && (
+        <>
+          <AppText>Couldn't retrieve the listings</AppText>
+          <AppButton title="Retry" onPress={loadListings} />
+        </>
+      )}
     </Screen>
   );
 }
@@ -41,6 +68,6 @@ export default function ListingsScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    backgroundColor: colors.light,
+    backgroundColor: colors.shadowy,
   },
 });

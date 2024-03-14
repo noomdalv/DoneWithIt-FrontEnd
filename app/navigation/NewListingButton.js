@@ -7,7 +7,11 @@ function NewListingButton({ onPress }) {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
-        <MaterialCommunityIcons name="plus-circle" size={40} />
+        <MaterialCommunityIcons
+          name="plus-circle"
+          color={colors.light}
+          size={40}
+        />
       </View>
     </TouchableOpacity>
   );
@@ -16,8 +20,8 @@ function NewListingButton({ onPress }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.primary,
-    borderColor: colors.black,
-    borderWidth: 4,
+    borderColor: colors.shadowy,
+    borderWidth: 6,
     height: 75,
     width: 75,
     bottom: 20,

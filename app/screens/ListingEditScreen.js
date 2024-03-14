@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import useLocation from "../hooks/useLocation";
 
@@ -12,12 +12,16 @@ import {
 } from "../components/forms";
 import Screen from "../components/Screen";
 import CategoryPickerItem from "../components/CategoryPickerItem";
+import apiListings from "../api/listings";
+import UploadScreen from "./UploadScreen";
+import { useFormikContext } from "formik";
+import colors from "../config/colors";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
   price: Yup.number().required().min(1).max(10000).label("Price"),
   description: Yup.string().label("Description"),
-  category: Yup.object().required().nullable().label("Category"),
+  category: Yup.object().required().label("Category"),
   images: Yup.array().min(1, "Please select at least one image."),
 });
 
@@ -78,22 +82,47 @@ const categories = [
   },
 ];
 
+const initialValues = {
+  title: "",
+  price: "",
+  description: "",
+  category: null,
+  images: [],
+};
+
 export default function ListingEditScreen() {
   const location = useLocation();
+  const [uploadVisible, setUploadVisible] = useState(false);
+  const [progress, setProgress] = useState(0);
 
-  console.log(location, "location");
+  const handleSubmit = async (listing, { resetForm }) => {
+    setProgress(0);
+    setUploadVisible(true);
+    const result = await apiListings.addListing(
+      { ...listing, location },
+      (progress) => {
+        setProgress(progress);
+      }
+    );
+
+    if (!result.ok) {
+      setUploadVisible(false);
+      return alert("Could not save the listing.");
+    }
+    // alert("Success");
+    resetForm({ values: initialValues });
+  };
 
   return (
     <Screen style={styles.container}>
+      <UploadScreen
+        progress={progress}
+        visible={uploadVisible}
+        onDone={() => setUploadVisible(false)}
+      />
       <AppForm
-        initialValues={{
-          title: "",
-          price: "",
-          description: "",
-          category: null,
-          images: [],
-        }}
-        onSubmit={(values) => console.log("location: ", location)}
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
         <AppFormImagePicker name="images" />
@@ -129,5 +158,6 @@ export default function ListingEditScreen() {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
+    backgroundColor: colors.shadowy,
   },
 });
