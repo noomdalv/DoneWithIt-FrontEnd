@@ -6,7 +6,7 @@ export default useLocation = () => {
 
   const getLocation = async () => {
     try {
-      let { status } = await Location.requestForegroundPermissionsAsync();
+      let { status } = await Location.requestForegroundsAsync();
 
       if (status !== "granted") {
         setErrorMsg("Permission to access location was denied");

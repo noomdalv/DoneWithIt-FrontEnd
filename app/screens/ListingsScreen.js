@@ -9,20 +9,20 @@ import AppButton from "../components/Button";
 import ActivityIndicator from "../components/ActivityIndicator";
 import listingsApi from "../api/listings";
 
-const listingsTest = [
-  {
-    id: 1,
-    title: "Red jacket for sale",
-    price: 100,
-    image: require("../assets/jacket.jpg"),
-  },
-  {
-    id: 2,
-    title: "Couch in great condition",
-    price: 200,
-    image: require("../assets/couch.jpg"),
-  },
-];
+// const listingsTest = [
+//   {
+//     id: 1,
+//     title: "Red jacket for sale",
+//     price: 100,
+//     image: require("../assets/jacket.jpg"),
+//   },
+//   {
+//     id: 2,
+//     title: "Couch in great condition",
+//     price: 200,
+//     image: require("../assets/couch.jpg"),
+//   },
+// ];
 
 export default function ListingsScreen({ navigation }) {
   const {
@@ -34,34 +34,36 @@ export default function ListingsScreen({ navigation }) {
 
   useEffect(() => {
     loadListings();
+    console.log("ListingsScreen");
   }, []);
-
+  console.log("Loading: ", loading);
   return (
-    <Screen style={styles.container}>
+    <>
+      <Screen style={styles.container}>
+        {!loading && (
+          <FlatList
+            data={listings}
+            keyExtractor={(listing) => listing.id.toString()}
+            renderItem={({ item }) => (
+              <Card
+                title={item.title}
+                subtitle={"$" + item.price}
+                imageUrl={item.images[0].url}
+                onPress={() => navigation.navigate("ListingDetails", item)}
+                thumbnailUrl={item.images[0].thumbnailUrl}
+              />
+            )}
+          />
+        )}
+        {error && (
+          <>
+            <AppText>Couldn't retrieve the listings</AppText>
+            <AppButton title="Retry" onPress={loadListings} />
+          </>
+        )}
+      </Screen>
       <ActivityIndicator visible={loading} />
-
-      {!loading && (
-        <FlatList
-          data={listings}
-          keyExtractor={(listing) => listing.id.toString()}
-          renderItem={({ item }) => (
-            <Card
-              title={item.title}
-              subtitle={"$" + item.price}
-              imageUrl={item.images[0].url}
-              onPress={() => navigation.navigate("ListingDetails", item)}
-              thumbnailUrl={item.images[0].thumbnailUrl}
-            />
-          )}
-        />
-      )}
-      {error && (
-        <>
-          <AppText>Couldn't retrieve the listings</AppText>
-          <AppButton title="Retry" onPress={loadListings} />
-        </>
-      )}
-    </Screen>
+    </>
   );
 }
 

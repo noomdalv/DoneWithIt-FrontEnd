@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "privacy": "hidden",
+    "plugins": [
+      [
+        "@sentry/react-native/expo",
+        {
+          "organization": "noomdalv",
+          "project": "donewithit"
+        }
+      ]
+    ]
+  }
+}

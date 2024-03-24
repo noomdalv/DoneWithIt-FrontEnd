@@ -3,6 +3,8 @@ import React from "react";
 import AppButton from "../components/Button";
 
 export default function WelcomeScreen({ navigation }) {
+  console.log("WelcomeScreen");
+
   return (
     <ImageBackground
       blurRadius={3}
@@ -15,11 +17,20 @@ export default function WelcomeScreen({ navigation }) {
       </View>
 
       <View style={styles.btnsContainer}>
-        <AppButton title="Login" onPress={() => navigation.navigate("Login")} />
+        <AppButton
+          title="Login"
+          onPress={() => {
+            console.log("jo");
+            navigation.navigate("Login");
+          }}
+        />
         <AppButton
           title="Register"
           color="tomato"
-          onPress={() => navigation.navigate("Register")}
+          onPress={() => {
+            console.log("ju");
+            navigation.navigate("Register");
+          }}
         />
       </View>
     </ImageBackground>

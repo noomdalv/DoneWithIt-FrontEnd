@@ -13,7 +13,6 @@ export default function Form({
       initialValues={initialValues}
       onSubmit={onSubmit}
       validationSchema={validationSchema}
-      initialTouched={{}}
     >
       {() => <>{children}</>}
     </Formik>

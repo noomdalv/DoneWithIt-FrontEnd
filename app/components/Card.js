@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    marginBottom: 7,
+    marginBottom: 5,
   },
   subtitle: {
     color: colors.primary,
