@@ -1,6 +1,7 @@
 import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import AppButton from "../components/Button";
+import colors from "../config/colors";
 
 export default function WelcomeScreen({ navigation }) {
   console.log("WelcomeScreen");
@@ -9,7 +10,7 @@ export default function WelcomeScreen({ navigation }) {
     <ImageBackground
       blurRadius={3}
       style={styles.background}
-      source={require("../assets/background.jpg")}
+      source={require("../assets/bg3.jpg")}
     >
       <View style={styles.logoContainer}>
         <Image style={styles.logo} source={require("../assets/logo-red.png")} />
@@ -20,7 +21,6 @@ export default function WelcomeScreen({ navigation }) {
         <AppButton
           title="Login"
           onPress={() => {
-            console.log("jo");
             navigation.navigate("Login");
           }}
         />
@@ -28,7 +28,6 @@ export default function WelcomeScreen({ navigation }) {
           title="Register"
           color="tomato"
           onPress={() => {
-            console.log("ju");
             navigation.navigate("Register");
           }}
         />
@@ -56,6 +55,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: "600",
     paddingVertical: 20,
+    color: colors.light,
   },
   btnsContainer: {
     padding: 20,

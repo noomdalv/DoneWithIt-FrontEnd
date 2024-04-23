@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "fb2ef311-dd31-4ff8-ac1d-2e968e0dd775"
+      }
+    },
+    "android": {
+      "package": "com.striuncekf.donewithit"
+    }
+  }
+}

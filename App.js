@@ -17,10 +17,10 @@ import { navigationRef } from "./app/navigation/rootNavigator";
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
 
-Sentry.init({
-  dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
-  debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
-});
+// Sentry.init({
+//   dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
+//   debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+// });
 
 function App() {
   const [user, setUser] = useState();
@@ -53,7 +53,7 @@ function App() {
   }, [appReady]);
 
   if (!appReady) return null;
-  throw new Error("Hello, again, Sentry!");
+
   return (
     <>
       <GestureHandlerRootView
@@ -78,4 +78,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Sentry.wrap(App);
+// export default Sentry.wrap(App);
+export default App;

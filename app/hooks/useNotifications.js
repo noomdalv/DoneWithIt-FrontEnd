@@ -1,6 +1,7 @@
 import * as Notifications from "expo-notifications";
 import pushTokensApi from "../api/expoPushTokens";
 import { useEffect } from "react";
+import Constants from "expo-constants";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -35,7 +36,13 @@ export default useNotifications = (notificationListener, responseListener) => {
         return;
       }
 
-      const token = (await Notifications.getExpoPushTokenAsync()).data;
+      const token = (
+        await Notifications.getExpoPushTokenAsync({
+          projectId: Constants.expoConfig?.extra?.eas?.projectId,
+        })
+      ).data;
+      console.log("-----");
+      console.log("projectId", Constants.easConfig?.projectId);
       console.log("token", token);
       pushTokensApi.register(token);
     } catch (error) {

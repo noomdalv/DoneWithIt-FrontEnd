@@ -5,6 +5,6 @@ export default {
   colors: {
     ...DefaultTheme.colors,
     primary: "yellowgreen",
-    background: "black",
+    background: "#f8f4f4",
   },
 };
